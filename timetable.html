@@ -1,0 +1,2478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and organize the GECC CampusVoice weekly class timetable.">
+    <meta name="theme-color" content="#f6f8fc">
+    <title>Timetable | GECC CampusVoice</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #5145f5;
+            --primary-dark: #4035d9;
+            --primary-light: #eef0ff;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #e5eaf2;
+            --background: #f6f8fc;
+            --white: #ffffff;
+            --green: #059669;
+            --radius: 18px;
+            --shadow: 0 8px 30px rgba(15, 23, 42, .045);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--background);
+            font-family: "Inter", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        button, a, input, select {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid rgba(81, 69, 245, .3);
+            outline-offset: 3px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* NAVBAR */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, .97);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1900px;
+            min-height: 98px;
+            margin: auto;
+            padding: 12px 2.4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            border-radius: 17px;
+            color: white;
+            background: linear-gradient(135deg, #635bff, #4338ca);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, .22);
+            font-size: 24px;
+        }
+
+        .brand-text h1 {
+            margin: 0;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+            white-space: nowrap;
+        }
+
+        .brand-text h1 span {
+            color: var(--primary);
+        }
+
+        .brand-text p {
+            margin: 5px 0 0;
+            color: #8793a8;
+            font-size: 12px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 12px;
+            border-radius: 13px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: background .2s, color .2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .icon-button,
+        .mobile-menu-button {
+            position: relative;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: white;
+            color: #526078;
+            cursor: pointer;
+        }
+
+        .icon-button:hover,
+        .mobile-menu-button:hover {
+            color: var(--primary);
+            background: #f8f9ff;
+        }
+
+        .new-button {
+            min-height: 54px;
+            padding: 0 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 15px;
+            color: white;
+            background: var(--primary);
+            box-shadow: 0 8px 18px rgba(81, 69, 245, .14);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: background .2s, transform .2s;
+        }
+
+        .new-button:hover {
+            color: white;
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .mobile-menu-button {
+            display: none;
+        }
+
+        /* PAGE */
+
+        .page-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: auto;
+            padding: 34px 28px 72px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .breadcrumb a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb i {
+            font-size: 10px;
+        }
+
+        /* HERO */
+
+        .shared-hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: 40px;
+            border: 1px solid #e0e7ff;
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(129, 140, 248, .17), transparent 32%),
+                linear-gradient(125deg, #fff 5%, #f3f5ff 100%);
+        }
+
+        .shared-hero::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 260px;
+            height: 260px;
+            right: -75px;
+            bottom: -160px;
+            border: 1px solid rgba(99, 102, 241, .18);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 30px rgba(99, 102, 241, .035),
+                0 0 0 60px rgba(99, 102, 241, .025);
+            pointer-events: none;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 240px;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+        }
+
+        .shared-hero h2 {
+            max-width: 720px;
+            margin: 17px 0 13px;
+            color: var(--text);
+            font-size: clamp(30px, 4vw, 45px);
+            line-height: 1.18;
+            letter-spacing: -1.8px;
+            font-weight: 800;
+        }
+
+        .shared-hero h2 span {
+            display: block;
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid #e2e8ff;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, .85);
+            color: #475569;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .hero-badge i {
+            color: var(--primary);
+        }
+
+        .hero-art {
+            width: 210px;
+            height: 210px;
+            display: grid;
+            place-items: center;
+            justify-self: center;
+            border: 1px solid #e0e7ff;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #fff, #e9edff);
+            transform: rotate(4deg);
+            box-shadow: 0 20px 45px rgba(79, 70, 229, .1);
+        }
+
+        .hero-art-inner {
+            width: 125px;
+            height: 125px;
+            display: grid;
+            place-items: center;
+            border-radius: 32px;
+            color: white;
+            background: linear-gradient(145deg, #818cf8, #4338ca);
+            font-size: 52px;
+            box-shadow: 0 15px 30px rgba(79, 70, 229, .25);
+        }
+
+        /* SUMMARY CARDS */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin: 24px 0 35px;
+        }
+
+        .summary-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+
+        .summary-icon.indigo {
+            color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .summary-icon.green {
+            color: #059669;
+            background: #ecfdf5;
+        }
+
+        .summary-icon.orange {
+            color: #ea580c;
+            background: #fff7ed;
+        }
+
+        .summary-number {
+            display: block;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .summary-label {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* SECTION HEADING */
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            margin: 8px 0 0;
+            font-size: 27px;
+            letter-spacing: -.9px;
+        }
+
+        .section-heading p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .date-label {
+            flex-shrink: 0;
+            padding: 10px 13px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: white;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* FILTER PANEL */
+
+        .filter-panel {
+            padding: 20px;
+            margin-bottom: 22px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 13px;
+        }
+
+        .filter-field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+
+        .filter-field select {
+            width: 100%;
+            height: 45px;
+            padding: 0 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            background: #fbfcff;
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .filter-field select:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1);
+        }
+
+        .filter-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f2f7;
+        }
+
+        .filter-note {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .reset-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 11px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background: var(--primary-light);
+        }
+
+        /* DAY SELECTOR */
+
+        .day-selector {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .day-button {
+            min-width: 0;
+            padding: 15px 8px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: white;
+            color: #64748b;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .day-button:hover {
+            border-color: #c7d2fe;
+            color: var(--primary);
+        }
+
+        .day-button.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 7px 18px rgba(79, 70, 229, .17);
+        }
+
+        .day-name {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .day-date {
+            display: block;
+            margin-top: 6px;
+            font-size: 10px;
+            opacity: .8;
+        }
+
+        .today-tag {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 3px 6px;
+            border-radius: 5px;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .day-button.active .today-tag {
+            background: rgba(255, 255, 255, .18);
+            color: white;
+        }
+
+        /* TIMETABLE PANEL */
+
+        .timetable-panel {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .timetable-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 22px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timetable-header h3 {
+            margin: 0;
+            font-size: 17px;
+            letter-spacing: -.4px;
+        }
+
+        .timetable-header p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .timetable-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .small-button {
+            min-height: 38px;
+            padding: 9px 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: white;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .small-button:hover {
+            border-color: #c7d2fe;
+            background: #f8faff;
+            color: var(--primary);
+        }
+
+        .schedule-list {
+            padding: 18px 24px 24px;
+        }
+
+        .schedule-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: 105px 4px minmax(0, 1fr) 42px;
+            align-items: stretch;
+            gap: 16px;
+            padding: 15px 0;
+        }
+
+        .schedule-item + .schedule-item {
+            border-top: 1px solid #f0f2f7;
+        }
+
+        .schedule-time {
+            padding-top: 4px;
+            text-align: right;
+        }
+
+        .schedule-time strong {
+            display: block;
+            color: #334155;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .schedule-time span {
+            display: block;
+            margin-top: 5px;
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        .schedule-line {
+            width: 4px;
+            min-height: 80px;
+            border-radius: 6px;
+            background: #818cf8;
+        }
+
+        .schedule-content {
+            min-width: 0;
+            padding: 15px 17px;
+            border: 1px solid #e5e7eb;
+            border-radius: 13px;
+            background: #fafbff;
+            transition: border-color .2s, background .2s;
+        }
+
+        .schedule-content:hover {
+            border-color: #c7d2fe;
+            background: #f7f8ff;
+        }
+
+        .schedule-item[data-subject="lecture"] .schedule-line {
+            background: #6366f1;
+        }
+
+        .schedule-item[data-subject="lab"] .schedule-line {
+            background: #059669;
+        }
+
+        .schedule-item[data-subject="break"] .schedule-line {
+            background: #f59e0b;
+        }
+
+        .schedule-item[data-subject="tutorial"] .schedule-line {
+            background: #0284c7;
+        }
+
+        .schedule-item[data-subject="lecture"] .schedule-content {
+            background: #f7f7ff;
+        }
+
+        .schedule-item[data-subject="lab"] .schedule-content {
+            background: #f0fdf8;
+        }
+
+        .schedule-item[data-subject="break"] .schedule-content {
+            background: #fffbeb;
+        }
+
+        .schedule-item[data-subject="tutorial"] .schedule-content {
+            background: #f0f9ff;
+        }
+
+        .class-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+
+        .schedule-content h4 {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .schedule-content p {
+            margin: 7px 0 0;
+            color: #64748b;
+            font-size: 11px;
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+        }
+
+        .class-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+            margin-top: 12px;
+        }
+
+        .class-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            font-size: 10px;
+        }
+
+        .class-meta i {
+            color: #818cf8;
+        }
+
+        .schedule-details {
+            align-self: center;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .schedule-details:hover {
+            border-color: #c7d2fe;
+            color: var(--primary);
+        }
+
+        .break-item .schedule-content {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 17px;
+        }
+
+        .break-icon {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .break-item .schedule-content h4 {
+            font-size: 12px;
+        }
+
+        .break-item .schedule-content p {
+            margin-top: 4px;
+            font-size: 10px;
+        }
+
+        .empty-day {
+            display: none;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .empty-day.visible {
+            display: block;
+        }
+
+        .empty-day-icon {
+            width: 62px;
+            height: 62px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 16px;
+            border-radius: 19px;
+            background: #eef2ff;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .empty-day h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        .empty-day p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        /* WEEKLY VIEW */
+
+        .weekly-view {
+            display: none;
+            margin-top: 26px;
+        }
+
+        .weekly-view.visible {
+            display: block;
+        }
+
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .weekly-day {
+            min-width: 0;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .weekly-day-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #edf0f5;
+        }
+
+        .weekly-day-heading h4 {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .weekly-day-heading span {
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        .weekly-class {
+            padding: 10px 11px;
+            border-left: 3px solid #6366f1;
+            border-radius: 7px;
+            background: #f7f7ff;
+        }
+
+        .weekly-class + .weekly-class {
+            margin-top: 8px;
+        }
+
+        .weekly-class.lab {
+            border-left-color: #059669;
+            background: #f0fdf8;
+        }
+
+        .weekly-class.break {
+            border-left-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .weekly-class strong {
+            display: block;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .weekly-class span {
+            display: block;
+            margin-top: 4px;
+            color: #64748b;
+            font-size: 9px;
+            line-height: 1.7;
+        }
+
+        .weekly-empty {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* DETAILS MODAL */
+
+        .class-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, .58);
+            backdrop-filter: blur(7px);
+        }
+
+        .class-modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            position: relative;
+            width: min(100%, 560px);
+            max-height: min(85vh, 760px);
+            overflow-y: auto;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, .7);
+            border-radius: 22px;
+            background: white;
+            box-shadow: 0 30px 100px rgba(15, 23, 42, .3);
+            animation: modalAppear .2s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(.99);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            background: #f4f5ff;
+        }
+
+        .modal-icon {
+            width: 55px;
+            height: 55px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 17px;
+            border-radius: 16px;
+            background: #eef2ff;
+            color: var(--primary);
+            font-size: 22px;
+        }
+
+        .modal-card h2 {
+            padding-right: 40px;
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.45;
+            letter-spacing: -.6px;
+        }
+
+        .modal-subtitle {
+            margin: 8px 0 20px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .modal-detail {
+            min-width: 0;
+            padding: 14px;
+            border: 1px solid #edf0f5;
+            border-radius: 12px;
+            background: #fafbff;
+        }
+
+        .modal-detail span {
+            display: block;
+            margin-bottom: 7px;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+
+        .modal-detail strong {
+            display: block;
+            color: #334155;
+            font-size: 12px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .modal-footer {
+            margin-top: 18px;
+            padding-top: 17px;
+            border-top: 1px solid #edf0f5;
+        }
+
+        /* FOOTER */
+
+        .page-footer {
+            padding: 25px 28px;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        .footer-inner {
+            max-width: 1384px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .footer-brand strong {
+            font-size: 13px;
+        }
+
+        .footer-brand p,
+        .footer-copy {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1450px) {
+            .header-container {
+                gap: 12px;
+                padding-inline: 20px;
+            }
+
+            .brand-text h1 {
+                font-size: 18px;
+            }
+
+            .navigation {
+                gap: 1px;
+            }
+
+            .nav-link {
+                padding: 11px 8px;
+                font-size: 11px;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .new-button {
+                padding-inline: 13px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                min-height: 78px;
+            }
+
+            .mobile-menu-button {
+                display: grid;
+            }
+
+            .navigation {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: none;
+                align-items: stretch;
+                flex-direction: column;
+                gap: 5px;
+                padding: 14px 20px 18px;
+                border-bottom: 1px solid var(--border);
+                background: white;
+                box-shadow: 0 15px 25px rgba(15, 23, 42, .06);
+            }
+
+            .navigation.mobile-open {
+                display: flex;
+            }
+
+            .nav-link {
+                justify-content: flex-start;
+                padding: 13px;
+                font-size: 12px;
+            }
+
+            .hero-layout {
+                grid-template-columns: minmax(0, 1fr) 180px;
+                gap: 20px;
+            }
+
+            .hero-art {
+                width: 165px;
+                height: 165px;
+                border-radius: 32px;
+            }
+
+            .hero-art-inner {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .filters-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .weekly-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .header-container {
+                padding: 10px 12px;
+                gap: 7px;
+            }
+
+            .brand {
+                gap: 8px;
+            }
+
+            .brand-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                font-size: 18px;
+            }
+
+            .brand-text h1 {
+                font-size: 14px;
+                letter-spacing: -.4px;
+            }
+
+            .brand-text p {
+                margin-top: 3px;
+                font-size: 9px;
+            }
+
+            .header-actions {
+                gap: 6px;
+            }
+
+            .icon-button,
+            .mobile-menu-button {
+                width: 36px;
+                height: 36px;
+                border-radius: 11px;
+            }
+
+            .new-button {
+                width: 37px;
+                min-height: 37px;
+                padding: 0;
+                border-radius: 11px;
+            }
+
+            .new-button span {
+                display: none;
+            }
+
+            .page-container {
+                padding: 24px 14px 50px;
+            }
+
+            .breadcrumb {
+                margin-bottom: 20px;
+                font-size: 10px;
+            }
+
+            .shared-hero {
+                padding: 25px 21px;
+                border-radius: 20px;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-art {
+                display: none;
+            }
+
+            .shared-hero h2 {
+                font-size: 31px;
+                letter-spacing: -1.2px;
+            }
+
+            .hero-description {
+                font-size: 12px;
+            }
+
+            .hero-badge {
+                font-size: 10px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin: 16px 0 28px;
+            }
+
+            .summary-card {
+                padding: 14px;
+            }
+
+            .summary-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 11px;
+                font-size: 15px;
+            }
+
+            .summary-number {
+                font-size: 20px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .section-heading h2 {
+                font-size: 23px;
+            }
+
+            .filter-panel {
+                padding: 14px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .day-selector {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+            }
+
+            .day-button {
+                padding: 12px 6px;
+            }
+
+            .timetable-header {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 18px;
+            }
+
+            .schedule-list {
+                padding: 12px;
+            }
+
+            .schedule-item {
+                grid-template-columns: 68px 3px minmax(0, 1fr);
+                gap: 9px;
+                padding: 12px 0;
+            }
+
+            .schedule-time strong {
+                font-size: 10px;
+            }
+
+            .schedule-time span {
+                font-size: 9px;
+            }
+
+            .schedule-line {
+                width: 3px;
+                min-height: 90px;
+            }
+
+            .schedule-content {
+                padding: 12px;
+            }
+
+            .schedule-content h4 {
+                font-size: 12px;
+            }
+
+            .schedule-content p {
+                font-size: 10px;
+            }
+
+            .schedule-details {
+                grid-column: 3;
+                justify-self: end;
+                width: 34px;
+                height: 34px;
+                margin-top: -3px;
+            }
+
+            .break-item .schedule-content {
+                grid-column: 3;
+            }
+
+            .weekly-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-card {
+                padding: 25px 19px;
+                border-radius: 18px;
+            }
+
+            .modal-card h2 {
+                font-size: 19px;
+            }
+
+            .modal-details {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .page-footer {
+                padding-inline: 18px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header,
+            .breadcrumb,
+            .shared-hero,
+            .summary-grid,
+            .filter-panel,
+            .day-selector,
+            .timetable-actions,
+            .page-footer,
+            .weekly-view {
+                display: none !important;
+            }
+
+            .page-container {
+                max-width: none;
+                padding: 0;
+            }
+
+            .timetable-panel {
+                border: 0;
+                box-shadow: none;
+            }
+
+            .schedule-content {
+                background: white !important;
+            }
+
+            .schedule-item {
+                break-inside: avoid;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SHARED NAVBAR -->
+    <header class="header">
+        <div class="header-container">
+
+            <a class="brand" href="index.html" aria-label="GECC CampusVoice home">
+                <span class="brand-icon">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </span>
+
+                <span class="brand-text">
+                    <h1>GECC <span>CampusVoice</span></h1>
+                    <p>One campus. One voice.</p>
+                </span>
+            </a>
+
+            <nav class="navigation" id="mainNavigation" aria-label="Main navigation">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.html#announcements">Announcements</a>
+                <a class="nav-link" href="index.html#branches">Branches</a>
+                <a class="nav-link" href="events.html">Events</a>
+                <a class="nav-link active" href="timetable.html" aria-current="page">Timetable</a>
+                <a class="nav-link" href="placements.html">Placements</a>
+                <a class="nav-link" href="departments.html">Departments</a>
+                <a class="nav-link" href="saved.html">Saved</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-button" id="notificationToggle"
+                        type="button" aria-label="Notifications"
+                        title="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+                <a class="new-button" href="index.html?createAnnouncement=1">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New Announcement</span>
+                </a>
+
+                <button class="mobile-menu-button" id="menuToggle"
+                        type="button" aria-label="Open navigation menu"
+                        aria-controls="mainNavigation" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="page-container">
+
+        <div class="breadcrumb">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Timetable</span>
+        </div>
+
+        <!-- SHARED HERO SECTION -->
+        <section class="shared-hero">
+            <div class="hero-layout">
+
+                <div>
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-calendar-week"></i>
+                        Academic planner
+                    </span>
+
+                    <h2>
+                        Plan your classes.
+                        <span>Own your day.</span>
+                    </h2>
+
+                    <p class="hero-description">
+                        Find your daily lectures, practical sessions, classrooms and faculty
+                        details in one organized timetable. Select your branch and semester
+                        to view the relevant schedule.
+                    </p>
+
+                    <div class="hero-badges">
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-clock"></i>
+                            Daily schedule
+                        </span>
+
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-flask"></i>
+                            Practical sessions
+                        </span>
+
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-print"></i>
+                            Print friendly
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+                    <div class="hero-art-inner">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SUMMARY -->
+        <section class="summary-grid" aria-label="Daily timetable summary">
+
+            <div class="summary-card">
+                <div class="summary-icon indigo">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <span class="summary-number" id="classCount">0</span>
+                    <span class="summary-label">Scheduled sessions</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon green">
+                    <i class="fa-solid fa-flask"></i>
+                </div>
+                <div>
+                    <span class="summary-number" id="labCount">0</span>
+                    <span class="summary-label">Practical sessions</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon orange">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div>
+                    <span class="summary-number" id="nextClass">—</span>
+                    <span class="summary-label">Next scheduled session</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- FILTERS -->
+        <section aria-labelledby="timetableSectionTitle">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-sliders"></i>
+                        Your schedule
+                    </span>
+
+                    <h2 id="timetableSectionTitle">Class timetable</h2>
+
+                    <p>Select your academic details and a day to view your schedule.</p>
+                </div>
+
+                <div class="date-label" id="selectedDateLabel">Loading date...</div>
+            </div>
+
+            <div class="filter-panel">
+
+                <div class="filters-grid">
+
+                    <div class="filter-field">
+                        <label for="branchFilter">Branch</label>
+                        <select id="branchFilter">
+                            <option value="CSE">Computer Science & Engineering</option>
+                            <option value="ISE">Information Science & Engineering</option>
+                            <option value="ECE">Electronics & Communication</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CIVIL">Civil Engineering</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="semesterFilter">Semester</label>
+                        <select id="semesterFilter">
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4" selected>Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
+                            <option value="7">Semester 7</option>
+                            <option value="8">Semester 8</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="A">Section A</option>
+                            <option value="B">Section B</option>
+                            <option value="C">Section C</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="filter-footer">
+                    <span class="filter-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Sample schedule for demonstration. Confirm timings with your department.
+                    </span>
+
+                    <button class="reset-button" id="todayButton" type="button">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        Go to today
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- DAY BUTTONS -->
+            <div class="day-selector" id="daySelector" aria-label="Choose timetable day"></div>
+
+            <!-- DAILY TIMETABLE -->
+            <div class="timetable-panel">
+
+                <div class="timetable-header">
+                    <div>
+                        <h3 id="dailyHeading">Daily schedule</h3>
+                        <p id="dailySubheading">Your classes for the selected day</p>
+                    </div>
+
+                    <div class="timetable-actions">
+                        <button class="small-button" id="previousDay" type="button">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            Previous
+                        </button>
+
+                        <button class="small-button" id="nextDayButton" type="button">
+                            Next
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                        <button class="small-button" id="weeklyToggle" type="button">
+                            <i class="fa-solid fa-calendar-week"></i>
+                            Weekly view
+                        </button>
+
+                        <button class="small-button" id="printButton" type="button">
+                            <i class="fa-solid fa-print"></i>
+                            Print
+                        </button>
+                    </div>
+                </div>
+
+                <div class="schedule-list" id="scheduleList"></div>
+
+                <div class="empty-day" id="emptyDay">
+                    <div class="empty-day-icon">
+                        <i class="fa-regular fa-calendar-xmark"></i>
+                    </div>
+                    <h3>No classes scheduled</h3>
+                    <p>There are no timetable entries for this day and selection.</p>
+                </div>
+
+            </div>
+
+            <!-- WEEKLY VIEW -->
+            <section class="weekly-view" id="weeklyView" aria-labelledby="weeklyTitle">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">
+                            <i class="fa-solid fa-calendar-week"></i>
+                            Week at a glance
+                        </span>
+                        <h2 id="weeklyTitle">Weekly schedule</h2>
+                        <p>Review the classes scheduled throughout the week.</p>
+                    </div>
+                </div>
+
+                <div class="weekly-grid" id="weeklyGrid"></div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- CLASS DETAILS MODAL -->
+    <div class="class-modal" id="classModal"
+         role="dialog" aria-modal="true"
+         aria-labelledby="modalClassTitle" aria-hidden="true">
+
+        <div class="modal-card">
+
+            <button class="modal-close" id="closeClassModal"
+                    type="button" aria-label="Close class details">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modalClassContent"></div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <strong>GECC CampusVoice</strong>
+                <p>One campus. One voice.</p>
+            </div>
+
+            <p class="footer-copy">
+                © 2026 GECC CampusVoice. Smart Campus Communication.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        "use strict";
+
+        /*
+         * DEMO DATA
+         * Replace the sample classes below with your college's actual timetable.
+         * Day values use Monday=0, Tuesday=1, ... Saturday=5.
+         */
+
+        const timetableData = [
+            {
+                id: 1, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "09:00", end: "10:00",
+                subject: "Design and Analysis of Algorithms",
+                code: "BCS401", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 2, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "10:00", end: "11:00",
+                subject: "Operating Systems",
+                code: "BCS403", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 3, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "11:00", end: "11:15",
+                subject: "Short Break",
+                code: "BREAK", faculty: "—", room: "—",
+                type: "break", note: "Break between sessions."
+            },
+            {
+                id: 4, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "11:15", end: "12:15",
+                subject: "Database Management Systems",
+                code: "BCS404", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 5, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "12:15", end: "13:00",
+                subject: "Lunch Break",
+                code: "LUNCH", faculty: "—", room: "—",
+                type: "break", note: "Lunch break."
+            },
+            {
+                id: 6, branch: "CSE", semester: "4", section: "A",
+                day: 0, start: "13:00", end: "15:00",
+                subject: "Programming Laboratory",
+                code: "BCSL405", faculty: "Faculty name to be confirmed",
+                room: "Lab to be confirmed", type: "lab",
+                note: "Confirm the lab batch, room, and practical schedule."
+            },
+            {
+                id: 7, branch: "CSE", semester: "4", section: "A",
+                day: 1, start: "09:00", end: "10:00",
+                subject: "Database Management Systems",
+                code: "BCS404", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 8, branch: "CSE", semester: "4", section: "A",
+                day: 1, start: "10:00", end: "11:00",
+                subject: "Computer Networks",
+                code: "BCS405", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 9, branch: "CSE", semester: "4", section: "A",
+                day: 1, start: "11:15", end: "12:15",
+                subject: "Constitution of India",
+                code: "BCS409", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "tutorial",
+                note: "Confirm the course title and scheduled hour."
+            },
+            {
+                id: 10, branch: "CSE", semester: "4", section: "A",
+                day: 1, start: "13:00", end: "15:00",
+                subject: "Database Laboratory",
+                code: "BCSL406", faculty: "Faculty name to be confirmed",
+                room: "Lab to be confirmed", type: "lab",
+                note: "Confirm the lab batch, room, and practical schedule."
+            },
+            {
+                id: 11, branch: "CSE", semester: "4", section: "A",
+                day: 2, start: "09:00", end: "10:00",
+                subject: "Operating Systems",
+                code: "BCS403", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 12, branch: "CSE", semester: "4", section: "A",
+                day: 2, start: "10:00", end: "11:00",
+                subject: "Design and Analysis of Algorithms",
+                code: "BCS401", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 13, branch: "CSE", semester: "4", section: "A",
+                day: 2, start: "11:15", end: "12:15",
+                subject: "Computer Networks",
+                code: "BCS405", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 14, branch: "CSE", semester: "4", section: "A",
+                day: 2, start: "13:00", end: "15:00",
+                subject: "Computer Networks Laboratory",
+                code: "BCSL407", faculty: "Faculty name to be confirmed",
+                room: "Lab to be confirmed", type: "lab",
+                note: "Confirm the lab batch, room, and practical schedule."
+            },
+            {
+                id: 15, branch: "CSE", semester: "4", section: "A",
+                day: 3, start: "09:00", end: "10:00",
+                subject: "Computer Networks",
+                code: "BCS405", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 16, branch: "CSE", semester: "4", section: "A",
+                day: 3, start: "10:00", end: "11:00",
+                subject: "Database Management Systems",
+                code: "BCS404", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 17, branch: "CSE", semester: "4", section: "A",
+                day: 3, start: "11:15", end: "12:15",
+                subject: "Design and Analysis of Algorithms",
+                code: "BCS401", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "tutorial",
+                note: "Update with the official tutorial details."
+            },
+            {
+                id: 18, branch: "CSE", semester: "4", section: "A",
+                day: 3, start: "13:00", end: "15:00",
+                subject: "Programming Laboratory",
+                code: "BCSL405", faculty: "Faculty name to be confirmed",
+                room: "Lab to be confirmed", type: "lab",
+                note: "Confirm the lab batch, room, and practical schedule."
+            },
+            {
+                id: 19, branch: "CSE", semester: "4", section: "A",
+                day: 4, start: "09:00", end: "10:00",
+                subject: "Operating Systems",
+                code: "BCS403", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 20, branch: "CSE", semester: "4", section: "A",
+                day: 4, start: "10:00", end: "11:00",
+                subject: "Computer Networks",
+                code: "BCS405", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 21, branch: "CSE", semester: "4", section: "A",
+                day: 4, start: "11:15", end: "12:15",
+                subject: "Database Management Systems",
+                code: "BCS404", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "lecture",
+                note: "Update with the official lecture details."
+            },
+            {
+                id: 22, branch: "CSE", semester: "4", section: "A",
+                day: 4, start: "13:00", end: "15:00",
+                subject: "Technical Skills / Tutorial",
+                code: "TUT", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "tutorial",
+                note: "Confirm the actual subject and time."
+            },
+            {
+                id: 23, branch: "CSE", semester: "4", section: "A",
+                day: 5, start: "09:00", end: "10:00",
+                subject: "Programming Practice",
+                code: "PRACTICE", faculty: "Faculty name to be confirmed",
+                room: "Lab to be confirmed", type: "lab",
+                note: "Confirm whether a Saturday practical is scheduled."
+            },
+            {
+                id: 24, branch: "CSE", semester: "4", section: "A",
+                day: 5, start: "10:00", end: "11:00",
+                subject: "Academic Tutorial",
+                code: "TUT", faculty: "Faculty name to be confirmed",
+                room: "Room to be confirmed", type: "tutorial",
+                note: "Confirm the actual subject and time."
+            }
+        ];
+
+        const DAY_NAMES = [
+            "Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday"
+        ];
+
+        const DAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        const branchFilter = document.getElementById("branchFilter");
+        const semesterFilter = document.getElementById("semesterFilter");
+        const sectionFilter = document.getElementById("sectionFilter");
+        const daySelector = document.getElementById("daySelector");
+        const scheduleList = document.getElementById("scheduleList");
+        const emptyDay = document.getElementById("emptyDay");
+        const weeklyView = document.getElementById("weeklyView");
+        const weeklyGrid = document.getElementById("weeklyGrid");
+        const weeklyToggle = document.getElementById("weeklyToggle");
+        const classModal = document.getElementById("classModal");
+        const modalContent = document.getElementById("modalClassContent");
+        const closeModalButton = document.getElementById("closeClassModal");
+
+        let selectedDay = getCurrentDayIndex();
+        let lastFocusedElement = null;
+        let isWeeklyVisible = false;
+
+        function getCurrentDayIndex() {
+            const day = new Date().getDay();
+
+            // Sunday is not included in the Monday-Saturday schedule.
+            return day === 0 ? 0 : day - 1;
+        }
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        function getSelectedClasses(day) {
+            return timetableData
+                .filter(item =>
+                    item.branch === branchFilter.value &&
+                    item.semester === semesterFilter.value &&
+                    item.section === sectionFilter.value &&
+                    item.day === day
+                )
+                .sort((a, b) => a.start.localeCompare(b.start));
+        }
+
+        function getDateForDay(dayIndex) {
+            const today = new Date();
+            const mondayOffset = (today.getDay() + 6) % 7;
+            const monday = new Date(today);
+
+            monday.setDate(today.getDate() - mondayOffset);
+            monday.setHours(0, 0, 0, 0);
+
+            const result = new Date(monday);
+            result.setDate(monday.getDate() + dayIndex);
+
+            return result;
+        }
+
+        function formatDate(date) {
+            return new Intl.DateTimeFormat("en-IN", {
+                day: "2-digit",
+                month: "short"
+            }).format(date);
+        }
+
+        function formatFullDate(date) {
+            return new Intl.DateTimeFormat("en-IN", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }).format(date);
+        }
+
+        function formatTime(time) {
+            const [hours, minutes] = time.split(":").map(Number);
+            const suffix = hours >= 12 ? "PM" : "AM";
+            const hour12 = hours % 12 || 12;
+
+            return `${hour12}:${String(minutes).padStart(2, "0")} ${suffix}`;
+        }
+
+        function getDuration(start, end) {
+            const [startHour, startMinute] = start.split(":").map(Number);
+            const [endHour, endMinute] = end.split(":").map(Number);
+
+            const minutes = (endHour * 60 + endMinute) -
+                (startHour * 60 + startMinute);
+
+            if (minutes < 60) return `${minutes} min`;
+
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+
+            return remainingMinutes
+                ? `${hours} hr ${remainingMinutes} min`
+                : `${hours} hr`;
+        }
+
+        function getTypeIcon(type) {
+            const icons = {
+                lecture: "fa-book-open",
+                lab: "fa-flask",
+                break: "fa-mug-hot",
+                tutorial: "fa-chalkboard-user"
+            };
+
+            return icons[type] || "fa-book";
+        }
+
+        function getTypeLabel(type) {
+            const labels = {
+                lecture: "Lecture",
+                lab: "Practical / Lab",
+                break: "Break",
+                tutorial: "Tutorial"
+            };
+
+            return labels[type] || "Class";
+        }
+
+        function renderDaySelector() {
+            daySelector.innerHTML = DAY_NAMES.map((name, index) => {
+                const date = getDateForDay(index);
+                const isToday = index === getCurrentDayIndex();
+
+                return `
+                    <button class="day-button ${index === selectedDay ? "active" : ""}"
+                            type="button"
+                            data-day="${index}"
+                            aria-pressed="${index === selectedDay}">
+                        <span class="day-name">${DAY_SHORT[index]}</span>
+                        <span class="day-date">${formatDate(date)}</span>
+                        ${isToday ? '<span class="today-tag">Today</span>' : ""}
+                    </button>
+                `;
+            }).join("");
+        }
+
+        function renderDailySchedule() {
+            const selectedDate = getDateForDay(selectedDay);
+            const classes = getSelectedClasses(selectedDay);
+
+            document.getElementById("selectedDateLabel").textContent =
+                formatFullDate(selectedDate);
+
+            document.getElementById("dailyHeading").textContent =
+                `${DAY_NAMES[selectedDay]} schedule`;
+
+            document.getElementById("dailySubheading").textContent =
+                `${branchFilter.value} · Semester ${semesterFilter.value} · Section ${sectionFilter.value}`;
+
+            document.getElementById("classCount").textContent =
+                classes.filter(item => item.type !== "break").length;
+
+            document.getElementById("labCount").textContent =
+                classes.filter(item => item.type === "lab").length;
+
+            const currentTime = new Date();
+            const isSelectedDateToday =
+                selectedDate.toDateString() === currentTime.toDateString();
+
+            const nextClass = isSelectedDateToday
+                ? classes.find(item =>
+                    item.type !== "break" &&
+                    item.end > `${String(currentTime.getHours()).padStart(2, "0")}:${String(currentTime.getMinutes()).padStart(2, "0")}`
+                )
+                : classes.find(item => item.type !== "break");
+
+            document.getElementById("nextClass").textContent =
+                nextClass ? formatTime(nextClass.start) : "—";
+
+            renderDaySelector();
+
+            scheduleList.innerHTML = classes.map(item => {
+                const isBreak = item.type === "break";
+
+                return `
+                    <article class="schedule-item ${isBreak ? "break-item" : ""}"
+                             data-subject="${escapeHTML(item.type)}">
+
+                        <div class="schedule-time">
+                            <strong>${formatTime(item.start)}</strong>
+                            <span>to ${formatTime(item.end)}</span>
+                        </div>
+
+                        <div class="schedule-line"></div>
+
+                        <div class="schedule-content">
+                            ${isBreak ? `
+                                <div class="break-icon">
+                                    <i class="fa-solid ${getTypeIcon(item.type)}"></i>
+                                </div>
+                                <div>
+                                    <h4>${escapeHTML(item.subject)}</h4>
+                                    <p>${getDuration(item.start, item.end)} · Take a short break</p>
+                                </div>
+                            ` : `
+                                <span class="class-type">
+                                    <i class="fa-solid ${getTypeIcon(item.type)}"></i>
+                                    ${getTypeLabel(item.type)}
+                                </span>
+
+                                <h4>${escapeHTML(item.subject)}</h4>
+
+                                <p>${escapeHTML(item.note)}</p>
+
+                                <div class="class-meta">
+                                    <span>
+                                        <i class="fa-solid fa-hashtag"></i>
+                                        ${escapeHTML(item.code)}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        ${escapeHTML(item.room)}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-regular fa-clock"></i>
+                                        ${getDuration(item.start, item.end)}
+                                    </span>
+                                </div>
+                            `}
+                        </div>
+
+                        ${isBreak ? `
+                            <span></span>
+                        ` : `
+                            <button class="schedule-details"
+                                    type="button"
+                                    data-class-id="${item.id}"
+                                    aria-label="View details for ${escapeHTML(item.subject)}"
+                                    title="View class details">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        `}
+                    </article>
+                `;
+            }).join("");
+
+            const hasClasses = classes.length > 0;
+
+            emptyDay.classList.toggle("visible", !hasClasses);
+            scheduleList.style.display = hasClasses ? "block" : "none";
+        }
+
+        function renderWeeklySchedule() {
+            weeklyGrid.innerHTML = DAY_NAMES.map((dayName, dayIndex) => {
+                const classes = getSelectedClasses(dayIndex);
+
+                const classMarkup = classes.length
+                    ? classes.map(item => `
+                        <div class="weekly-class ${item.type === "lab" ? "lab" : ""} ${item.type === "break" ? "break" : ""}">
+                            <strong>${escapeHTML(item.subject)}</strong>
+                            <span>
+                                ${formatTime(item.start)} – ${formatTime(item.end)}
+                                ${item.code ? ` · ${escapeHTML(item.code)}` : ""}
+                            </span>
+                        </div>
+                    `).join("")
+                    : `<p class="weekly-empty">No scheduled classes</p>`;
+
+                return `
+                    <article class="weekly-day">
+                        <div class="weekly-day-heading">
+                            <h4>${dayName}</h4>
+                            <span>${formatDate(getDateForDay(dayIndex))}</span>
+                        </div>
+
+                        ${classMarkup}
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function renderAll() {
+            renderDailySchedule();
+
+            if (isWeeklyVisible) {
+                renderWeeklySchedule();
+            }
+        }
+
+        function openClassDetails(id, trigger) {
+            const item = timetableData.find(entry => entry.id === id);
+            if (!item) return;
+
+            lastFocusedElement = trigger || document.activeElement;
+
+            modalContent.innerHTML = `
+                <div class="modal-icon">
+                    <i class="fa-solid ${getTypeIcon(item.type)}"></i>
+                </div>
+
+                <h2 id="modalClassTitle">${escapeHTML(item.subject)}</h2>
+
+                <p class="modal-subtitle">
+                    ${DAY_NAMES[item.day]} · ${formatTime(item.start)} – ${formatTime(item.end)}
+                </p>
+
+                <div class="modal-details">
+                    <div class="modal-detail">
+                        <span>Course code</span>
+                        <strong>${escapeHTML(item.code)}</strong>
+                    </div>
+
+                    <div class="modal-detail">
+                        <span>Session type</span>
+                        <strong>${getTypeLabel(item.type)}</strong>
+                    </div>
+
+                    <div class="modal-detail">
+                        <span>Faculty</span>
+                        <strong>${escapeHTML(item.faculty)}</strong>
+                    </div>
+
+                    <div class="modal-detail">
+                        <span>Classroom / Lab</span>
+                        <strong>${escapeHTML(item.room)}</strong>
+                    </div>
+
+                    <div class="modal-detail">
+                        <span>Branch and semester</span>
+                        <strong>${escapeHTML(item.branch)} · Semester ${escapeHTML(item.semester)} · Section ${escapeHTML(item.section)}</strong>
+                    </div>
+
+                    <div class="modal-detail">
+                        <span>Duration</span>
+                        <strong>${getDuration(item.start, item.end)}</strong>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <p class="filter-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        ${escapeHTML(item.note)}
+                    </p>
+                </div>
+            `;
+
+            classModal.classList.add("open");
+            classModal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+            closeModalButton.focus();
+        }
+
+        function closeClassDetails() {
+            classModal.classList.remove("open");
+            classModal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+
+            if (lastFocusedElement &&
+                typeof lastFocusedElement.focus === "function" &&
+                document.contains(lastFocusedElement)) {
+                lastFocusedElement.focus();
+            }
+        }
+
+        function setSelectedDay(day) {
+            if (day < 0 || day >= DAY_NAMES.length) return;
+
+            selectedDay = day;
+            renderAll();
+        }
+
+        function goToToday() {
+            selectedDay = getCurrentDayIndex();
+            renderAll();
+        }
+
+        /* Day selection */
+        daySelector.addEventListener("click", event => {
+            const button = event.target.closest("[data-day]");
+            if (!button) return;
+
+            setSelectedDay(Number(button.dataset.day));
+        });
+
+        /* Filters */
+        branchFilter.addEventListener("change", renderAll);
+        semesterFilter.addEventListener("change", renderAll);
+        sectionFilter.addEventListener("change", renderAll);
+
+        document.getElementById("todayButton")
+            .addEventListener("click", goToToday);
+
+        document.getElementById("previousDay")
+            .addEventListener("click", () => {
+                setSelectedDay((selectedDay - 1 + DAY_NAMES.length) % DAY_NAMES.length);
+            });
+
+        document.getElementById("nextDayButton")
+            .addEventListener("click", () => {
+                setSelectedDay((selectedDay + 1) % DAY_NAMES.length);
+            });
+
+        /* Weekly view */
+        weeklyToggle.addEventListener("click", () => {
+            isWeeklyVisible = !isWeeklyVisible;
+            weeklyView.classList.toggle("visible", isWeeklyVisible);
+
+            weeklyToggle.innerHTML = isWeeklyVisible
+                ? '<i class="fa-solid fa-calendar-day"></i> Daily view'
+                : '<i class="fa-solid fa-calendar-week"></i> Weekly view';
+
+            if (isWeeklyVisible) {
+                renderWeeklySchedule();
+                weeklyView.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+
+        /* Print */
+        document.getElementById("printButton")
+            .addEventListener("click", () => window.print());
+
+        /* Class details via event delegation */
+        scheduleList.addEventListener("click", event => {
+            const button = event.target.closest("[data-class-id]");
+            if (!button) return;
+
+            openClassDetails(Number(button.dataset.classId), button);
+        });
+
+        /* Modal */
+        closeModalButton.addEventListener("click", closeClassDetails);
+
+        classModal.addEventListener("click", event => {
+            if (event.target === classModal) {
+                closeClassDetails();
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape" && classModal.classList.contains("open")) {
+                closeClassDetails();
+            }
+        });
+
+        /* Mobile navigation */
+        const menuToggle = document.getElementById("menuToggle");
+        const mainNavigation = document.getElementById("mainNavigation");
+
+        if (menuToggle && mainNavigation) {
+            menuToggle.addEventListener("click", () => {
+                const isOpen = mainNavigation.classList.toggle("mobile-open");
+
+                menuToggle.setAttribute("aria-expanded", String(isOpen));
+                menuToggle.setAttribute(
+                    "aria-label",
+                    isOpen ? "Close navigation menu" : "Open navigation menu"
+                );
+
+                menuToggle.innerHTML = isOpen
+                    ? '<i class="fa-solid fa-xmark"></i>'
+                    : '<i class="fa-solid fa-bars"></i>';
+            });
+
+            mainNavigation.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    mainNavigation.classList.remove("mobile-open");
+                    menuToggle.setAttribute("aria-expanded", "false");
+                    menuToggle.setAttribute("aria-label", "Open navigation menu");
+                    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
+
+        document.getElementById("notificationToggle")
+            .addEventListener("click", () => {
+                window.location.href = "index.html#announcements";
+            });
+
+        /* Initial render */
+        renderAll();
+    </script>
+
+</body>
+</html>

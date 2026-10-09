@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GECC CampusVoice - Smart college communication platform">
+    <meta name="theme-color" content="#2563eb">
+
+    <title>GECC CampusVoice</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Styles and JavaScript -->
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header" id="home">
+        <div class="header-container">
+            <a href="#home" class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>GECC <span>CampusVoice</span></h1>
+                    <p>One campus. One voice.</p>
+                </div>
+            </a>
+
+            <nav class="navigation" aria-label="Main navigation">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#announcements" class="nav-link">Announcements</a>
+                <a href="#branches" class="nav-link">Branches</a>
+                <a href="#announcements" class="nav-link" data-nav-type="event">Events</a>
+                <a href="timetable.html" class="nav-link">Timetable</a>
+                <a href="placements.html" class="nav-link">Placements</a>
+                <a href="departments.html" class="nav-link">Departments</a>
+                <a href="saved.html" class="nav-link">Saved</a>
+            </nav>
+
+            <div class="header-actions">
+                <button
+                    class="icon-button notification-button"
+                    id="notificationToggle"
+                    type="button"
+                    aria-label="Show notifications"
+                    aria-controls="notificationPanel"
+                    aria-expanded="false"
+                    title="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span id="notificationBadge" class="notification-badge" hidden>0</span>
+                </button>
+
+                <button class="new-button" id="openAnnouncementModal" type="button">
+                    <i class="fa-solid fa-plus"></i>
+                    New Announcement
+                </button>
+
+                <button
+                    class="mobile-menu-button"
+                    type="button"
+                    aria-label="Open menu"
+                    aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-orb orb-one"></div>
+            <div class="hero-orb orb-two"></div>
+
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="hero-badge">
+                        <span class="live-dot"></span>
+                        GECC DIGITAL CAMPUS
+                    </span>
+
+                    <h2>
+                        One campus.
+                        <span>Every important update.</span>
+                    </h2>
+
+                    <p class="hero-description">
+                        A smart communication platform for students, faculty and
+                        departments. Discover academic notices, events, placements
+                        and important campus updates in one place.
+                    </p>
+
+                    <div class="hero-actions">
+                        <button class="primary-button" id="exploreButton" type="button">
+                            Explore Announcements
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                        <button class="secondary-button" id="eventButton" type="button">
+                            <i class="fa-regular fa-calendar"></i>
+                            View Events
+                        </button>
+                    </div>
+
+                    <div class="hero-trust">
+                        <div class="avatar-stack" aria-hidden="true">
+                            <span>V</span>
+                            <span>A</span>
+                            <span>R</span>
+                            <span>S</span>
+                        </div>
+                        <p><strong>2,500+</strong> students connected</p>
+                    </div>
+                </div>
+
+                <div class="hero-dashboard">
+                    <div class="dashboard-window">
+                        <div class="dashboard-top">
+                            <div>
+                                <span>CAMPUS FEED</span>
+                                <h3>What's happening?</h3>
+                            </div>
+                            <div class="online">
+                                <span></span>
+                                Live
+                            </div>
+                        </div>
+
+                        <div class="dashboard-item">
+                            <div class="dashboard-icon blue">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <strong>Internal Assessment</strong>
+                                <p>Schedule released</p>
+                            </div>
+                            <small>New</small>
+                        </div>
+
+                        <div class="dashboard-item">
+                            <div class="dashboard-icon purple">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </div>
+                            <div>
+                                <strong>Technical Fest 2026</strong>
+                                <p>Registration open</p>
+                            </div>
+                            <small>Event</small>
+                        </div>
+
+                        <div class="dashboard-item">
+                            <div class="dashboard-icon orange">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
+                            <div>
+                                <strong>Placement Drive</strong>
+                                <p>New opportunity</p>
+                            </div>
+                            <small>Career</small>
+                        </div>
+
+                        <div class="dashboard-bottom">
+                            <span>
+                                <i class="fa-solid fa-shield-halved"></i>
+                                Campus information
+                            </span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </div>
+                    </div>
+
+                    <div class="floating-notification">
+                        <div class="floating-notification-icon">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <div>
+                            <strong>Campus updates</strong>
+                            <p>Stay informed in one place</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="stats">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <strong id="announcementStat">0</strong>
+                        <span>Announcements</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <strong>2,500+</strong>
+                        <span>Students</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div>
+                        <strong>7</strong>
+                        <span>Branches</span>
+                    </div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div>
+                        <strong id="popularStat">0</strong>
+                        <span>Total Views</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANNOUNCEMENTS -->
+        <section class="announcements" id="announcements">
+            <div class="section-container">
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">CAMPUS COMMUNICATION</span>
+                        <h2>Latest announcements</h2>
+                        <p>
+                            Find important updates, academic notices and campus events.
+                            Popularity is based on student views.
+                        </p>
+                    </div>
+
+                    <button class="view-all" type="button" id="viewAll">
+                        Reset filters
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+
+                <!-- PRIORITY INFORMATION -->
+                <div class="priority-info">
+                    <div class="priority-info-icon">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <div>
+                        <strong>Smart Priority</strong>
+                        <p>
+                            Student views determine announcement priority.
+                            Popular announcements can appear first.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SEARCH AND SORT -->
+                <div class="search-row">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            type="search"
+                            id="announcementSearch"
+                            placeholder="Search announcements, departments, branches..."
+                            autocomplete="off"
+                            aria-label="Search announcements">
+
+                        <button
+                            id="clearSearch"
+                            class="clear-search"
+                            type="button"
+                            title="Clear search"
+                            aria-label="Clear search">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <div class="sort-box">
+                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        <select id="sortAnnouncements" aria-label="Sort announcements">
+                            <option value="priority">High Priority</option>
+                            <option value="latest">Latest</option>
+                            <option value="clicks">Most Clicked</option>
+                            <option value="title">A - Z</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- FILTERS -->
+                <div class="filter-panel">
+                    <div class="filter-group">
+                        <div class="filter-title">
+                            <i class="fa-solid fa-layer-group"></i>
+                            Category
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="filter category-filter active" data-category="all" type="button">All</button>
+                            <button class="filter category-filter" data-category="academic" type="button">Academic</button>
+                            <button class="filter category-filter" data-category="events" type="button">Events</button>
+                            <button class="filter category-filter" data-category="placement" type="button">Placement</button>
+                            <button class="filter category-filter" data-category="general" type="button">General</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <div class="filter-title">
+                            <i class="fa-solid fa-tags"></i>
+                            Announcement Type
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="filter type-filter active" data-type="all" type="button">All Types</button>
+                            <button class="filter type-filter" data-type="notice" type="button">Notice</button>
+                            <button class="filter type-filter" data-type="event" type="button">Event</button>
+                            <button class="filter type-filter" data-type="exam" type="button">Exam</button>
+                            <button class="filter type-filter" data-type="placement" type="button">Placement</button>
+                            <button class="filter type-filter" data-type="workshop" type="button">Workshop</button>
+                            <button class="filter type-filter" data-type="circular" type="button">Circular</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group" id="branches">
+                        <div class="filter-title">
+                            <i class="fa-solid fa-code-branch"></i>
+                            Branch
+                        </div>
+
+                        <div class="filter-buttons">
+                            <button class="filter branch-filter active" data-branch="all" type="button">All Branches</button>
+                            <button class="filter branch-filter" data-branch="cse" type="button">CSE</button>
+                            <button class="filter branch-filter" data-branch="ece" type="button">ECE</button>
+                            <button class="filter branch-filter" data-branch="eee" type="button">EEE</button>
+                            <button class="filter branch-filter" data-branch="me" type="button">Mechanical</button>
+                            <button class="filter branch-filter" data-branch="civil" type="button">Civil</button>
+                            <button class="filter branch-filter" data-branch="mba" type="button">MBA</button>
+                            <button class="filter branch-filter" data-branch="mca" type="button">MCA</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESULT INFORMATION -->
+                <div class="result-bar">
+                    <span id="resultCount">0 announcements</span>
+                    <span class="priority-result">
+                        <i class="fa-solid fa-fire"></i>
+                        Priority is based on student views
+                    </span>
+                </div>
+
+                <!-- DYNAMIC ANNOUNCEMENT CARDS -->
+                <div class="announcement-grid" id="announcementGrid"></div>
+
+                <!-- NO RESULTS -->
+                <div class="no-results" id="noResults" hidden>
+                    <div class="no-results-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3>No announcements found</h3>
+                    <p>Try changing your search or filters.</p>
+                    <button type="button" id="resetNoResults" class="secondary-button">
+                        Reset Filters
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="cta">
+            <div class="cta-container">
+                <div>
+                    <span class="section-label">CAMPUS ADMINISTRATION</span>
+                    <h2>Have an important announcement?</h2>
+                    <p>
+                        Share campus updates with students across departments
+                        and branches.
+                    </p>
+                </div>
+
+                <button class="primary-button" id="openAnnouncementModalCta" type="button">
+                    <i class="fa-solid fa-plus"></i>
+                    Create Announcement
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- CREATE ANNOUNCEMENT MODAL -->
+    <div class="modal-overlay" id="announcementModal" aria-hidden="true" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-label">CAMPUS ADMINISTRATION</span>
+                    <h2 id="modalTitle">Create Announcement</h2>
+                    <p>Add a new campus update for students.</p>
+                </div>
+
+                <button
+                    class="modal-close"
+                    id="closeAnnouncementModal"
+                    type="button"
+                    aria-label="Close create announcement">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="announcementForm">
+                <div class="form-grid">
+                    <div class="form-group full">
+                        <label for="announcementTitle">Announcement Title</label>
+                        <input
+                            type="text"
+                            id="announcementTitle"
+                            placeholder="Example: Internal Assessment Schedule Released"
+                            maxlength="100"
+                            required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="announcementDescription">Description</label>
+                        <textarea
+                            id="announcementDescription"
+                            rows="5"
+                            maxlength="500"
+                            placeholder="Write the important details..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementCategory">Category</label>
+                        <select id="announcementCategory" required>
+                            <option value="academic">Academic</option>
+                            <option value="events">Events</option>
+                            <option value="placement">Placement</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementType">Announcement Type</label>
+                        <select id="announcementType" required>
+                            <option value="notice">Notice</option>
+                            <option value="event">Event</option>
+                            <option value="exam">Exam</option>
+                            <option value="placement">Placement</option>
+                            <option value="workshop">Workshop</option>
+                            <option value="circular">Circular</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementBranch">Branch</label>
+                        <select id="announcementBranch" required>
+                            <option value="all">All Branches</option>
+                            <option value="cse">CSE</option>
+                            <option value="ece">ECE</option>
+                            <option value="eee">EEE</option>
+                            <option value="me">Mechanical</option>
+                            <option value="civil">Civil</option>
+                            <option value="mba">MBA</option>
+                            <option value="mca">MCA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementDate">Announcement Date</label>
+                        <input type="date" id="announcementDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="announcementExpiry">Expiry Date (optional)</label>
+                        <input type="date" id="announcementExpiry" name="expiryDate">
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="announcementAuthor">Published By</label>
+                        <input
+                            type="text"
+                            id="announcementAuthor"
+                            placeholder="Example: CSE Department"
+                            maxlength="80"
+                            required>
+                    </div>
+                </div>
+
+                <div class="priority-note">
+                    <i class="fa-solid fa-fire"></i>
+                    <div>
+                        <strong>Priority is automatic</strong>
+                        <p>Student views determine priority.</p>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelAnnouncement">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="primary-button">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Publish Announcement
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ANNOUNCEMENT DETAILS MODAL -->
+    <div class="modal-overlay" id="detailsModal" aria-hidden="true" hidden>
+        <div
+            class="details-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Announcement details">
+
+            <button
+                class="modal-close details-close"
+                id="closeDetailsModal"
+                type="button"
+                aria-label="Close announcement details">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="detailsContent"></div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CENTER -->
+    <div
+        class="notification-panel"
+        id="notificationPanel"
+        role="dialog"
+        aria-label="Notifications"
+        hidden>
+
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button id="markAllRead" type="button">Mark all read</button>
+        </div>
+
+        <div id="notificationList">
+            <p class="empty-notifications">No notifications yet.</p>
+        </div>
+    </div>
+
+    <!-- TOAST MESSAGES -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <strong>GECC CampusVoice</strong>
+                <p>One campus. One voice.</p>
+            </div>
+            <p>© 2026 GECC CampusVoice. Smart Campus Communication.</p>
+        </div>
+    </footer>
+</body>
+</html>

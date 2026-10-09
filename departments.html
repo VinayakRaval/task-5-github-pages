@@ -1,0 +1,2153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore GECC CampusVoice departments, academic programs and faculty contacts.">
+    <meta name="theme-color" content="#f8faff">
+    <title>Departments | GECC CampusVoice</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #5145f5;
+            --primary-dark: #4035d9;
+            --primary-light: #eef0ff;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #e5eaf2;
+            --background: #f6f8fc;
+            --white: #ffffff;
+            --radius: 18px;
+            --shadow: 0 8px 30px rgba(15, 23, 42, 0.045);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 110px;
+        }
+
+        body {
+            margin: 0;
+            color: var(--text);
+            background: var(--background);
+            font-family: "Inter", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button,
+        a,
+        input,
+        select {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid rgba(81, 69, 245, 0.3);
+            outline-offset: 3px;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        /* =========================
+           SHARED NAVBAR
+        ========================= */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.97);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1900px;
+            min-height: 98px;
+            margin: auto;
+            padding: 12px 2.4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            border-radius: 17px;
+            color: white;
+            background: linear-gradient(135deg, #635bff, #4338ca);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.22);
+            font-size: 24px;
+        }
+
+        .brand-text h1 {
+            margin: 0;
+            color: var(--text);
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+            white-space: nowrap;
+        }
+
+        .brand-text h1 span {
+            color: var(--primary);
+        }
+
+        .brand-text p {
+            margin: 5px 0 0;
+            color: #8793a8;
+            font-size: 12px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 12px;
+            border-radius: 13px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .icon-button,
+        .mobile-menu-button {
+            position: relative;
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: white;
+            color: #526078;
+            cursor: pointer;
+        }
+
+        .icon-button:hover,
+        .mobile-menu-button:hover {
+            color: var(--primary);
+            background: #f8f9ff;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            min-width: 17px;
+            height: 17px;
+            padding: 0 4px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            color: white;
+            background: #ef4444;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .new-button {
+            min-height: 54px;
+            padding: 0 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 15px;
+            color: white;
+            background: var(--primary);
+            box-shadow: 0 8px 18px rgba(81, 69, 245, 0.14);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            white-space: nowrap;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .new-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .mobile-menu-button {
+            display: none;
+        }
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        .department-page {
+            width: 100%;
+            max-width: 1440px;
+            margin: auto;
+            padding: 34px 28px 72px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        .breadcrumb a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: #64748b;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb i {
+            font-size: 10px;
+        }
+
+        /* =========================
+           SHARED HERO DESIGN
+        ========================= */
+
+        .shared-hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            padding: 40px;
+            border: 1px solid #e0e7ff;
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(129, 140, 248, 0.17), transparent 32%),
+                linear-gradient(125deg, #ffffff 5%, #f3f5ff 100%);
+        }
+
+        .shared-hero::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 260px;
+            height: 260px;
+            right: -75px;
+            bottom: -160px;
+            border: 1px solid rgba(99, 102, 241, 0.18);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 30px rgba(99, 102, 241, 0.035),
+                0 0 0 60px rgba(99, 102, 241, 0.025);
+            pointer-events: none;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 240px;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow i {
+            font-size: 13px;
+        }
+
+        .shared-hero h2 {
+            max-width: 720px;
+            margin: 17px 0 13px;
+            color: var(--text);
+            font-size: clamp(30px, 4vw, 45px);
+            line-height: 1.18;
+            letter-spacing: -1.8px;
+            font-weight: 800;
+        }
+
+        .shared-hero h2 span {
+            display: block;
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 23px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid #e2e8ff;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #475569;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .hero-badge i {
+            color: var(--primary);
+        }
+
+        .hero-art {
+            width: 210px;
+            height: 210px;
+            display: grid;
+            place-items: center;
+            justify-self: center;
+            border: 1px solid #e0e7ff;
+            border-radius: 40px;
+            background: linear-gradient(145deg, #ffffff, #e9edff);
+            transform: rotate(4deg);
+            box-shadow: 0 20px 45px rgba(79, 70, 229, 0.1);
+        }
+
+        .hero-art-inner {
+            width: 125px;
+            height: 125px;
+            display: grid;
+            place-items: center;
+            border-radius: 32px;
+            color: white;
+            background: linear-gradient(145deg, #818cf8, #4338ca);
+            font-size: 52px;
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.25);
+        }
+
+        /* =========================
+           STATISTICS
+        ========================= */
+
+        .department-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin: 24px 0 42px;
+        }
+
+        .stat-card {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            font-size: 18px;
+        }
+
+        .stat-icon.indigo {
+            color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .stat-icon.green {
+            color: #059669;
+            background: #ecfdf5;
+        }
+
+        .stat-icon.orange {
+            color: #ea580c;
+            background: #fff7ed;
+        }
+
+        .stat-icon.blue {
+            color: #0284c7;
+            background: #f0f9ff;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
+        }
+
+        .stat-label {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           DIRECTORY HEADING
+        ========================= */
+
+        .section-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .section-top h2 {
+            margin: 8px 0 0;
+            font-size: 27px;
+            letter-spacing: -0.9px;
+        }
+
+        .section-top p {
+            margin: 8px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .directory-count {
+            flex-shrink: 0;
+            padding: 10px 13px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: white;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .directory-count strong {
+            color: var(--primary);
+        }
+
+        /* =========================
+           SEARCH AND FILTERS
+        ========================= */
+
+        .directory-toolbar {
+            padding: 20px;
+            margin-bottom: 23px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .toolbar-top {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 190px 180px;
+            gap: 12px;
+        }
+
+        .search-control {
+            position: relative;
+            min-width: 0;
+        }
+
+        .search-control > i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            color: #94a3b8;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .search-control input,
+        .toolbar-select {
+            width: 100%;
+            height: 47px;
+            border: 1px solid #e2e8f0;
+            border-radius: 11px;
+            outline: none;
+            background: #fbfcff;
+            color: var(--text);
+            font-size: 12px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-control input {
+            padding: 0 42px;
+        }
+
+        .search-control input:focus,
+        .toolbar-select:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-clear {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            display: none;
+            place-items: center;
+            border: 0;
+            border-radius: 8px;
+            background: transparent;
+            color: #64748b;
+            cursor: pointer;
+            transform: translateY(-50%);
+        }
+
+        .search-clear.visible {
+            display: grid;
+        }
+
+        .toolbar-select {
+            padding: 0 12px;
+            cursor: pointer;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .filter-label {
+            margin-right: 5px;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        .program-chip {
+            min-height: 35px;
+            padding: 8px 13px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: white;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .program-chip:hover {
+            border-color: #c7d2fe;
+            color: var(--primary);
+        }
+
+        .program-chip.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+
+        .toolbar-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 17px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f2f7;
+        }
+
+        .toolbar-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .reset-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 11px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background: var(--primary-light);
+        }
+
+        /* =========================
+           DEPARTMENT CARDS
+        ========================= */
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: stretch;
+            gap: 19px;
+        }
+
+        .department-card {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.025);
+            animation: cardAppear 0.3s ease both;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .department-card:hover {
+            transform: translateY(-4px);
+            border-color: #d8ddff;
+            box-shadow: 0 18px 42px rgba(15, 23, 42, 0.075);
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .department-icon {
+            width: 54px;
+            height: 54px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 16px;
+            color: #4f46e5;
+            background: #eef2ff;
+            font-size: 21px;
+        }
+
+        .department-icon.green {
+            color: #059669;
+            background: #ecfdf5;
+        }
+
+        .department-icon.orange {
+            color: #ea580c;
+            background: #fff7ed;
+        }
+
+        .department-icon.blue {
+            color: #0284c7;
+            background: #f0f9ff;
+        }
+
+        .department-icon.pink {
+            color: #db2777;
+            background: #fdf2f8;
+        }
+
+        .department-icon.teal {
+            color: #0d9488;
+            background: #f0fdfa;
+        }
+
+        .department-code {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            padding: 7px 9px;
+            border: 1px solid #e0e7ff;
+            border-radius: 9px;
+            background: #f8faff;
+            color: #4338ca;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .department-card h3 {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.55;
+            letter-spacing: -0.3px;
+        }
+
+        .program-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin: 13px 0 14px;
+        }
+
+        .program-tag {
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .department-description {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        .card-divider {
+            height: 1px;
+            margin: 20px 0;
+            background: #edf0f5;
+        }
+
+        .department-contact {
+            display: grid;
+            gap: 14px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            min-width: 0;
+        }
+
+        .contact-icon {
+            width: 33px;
+            height: 33px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: #f4f5ff;
+            color: #818cf8;
+            font-size: 12px;
+        }
+
+        .contact-copy {
+            min-width: 0;
+            padding-top: 1px;
+        }
+
+        .contact-label {
+            display: block;
+            margin-bottom: 4px;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            display: block;
+            overflow-wrap: anywhere;
+            color: #334155;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        .contact-value a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: auto;
+            padding-top: 22px;
+        }
+
+        .card-button {
+            min-height: 41px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .card-button:hover {
+            border-color: #c7d2fe;
+            background: #f8faff;
+            color: var(--primary);
+        }
+
+        .card-button.primary {
+            flex: 1;
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-button.primary:hover {
+            border-color: var(--primary-dark);
+            background: var(--primary-dark);
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+            display: none;
+            padding: 55px 20px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 18px;
+            background: white;
+            text-align: center;
+        }
+
+        .empty-state.visible {
+            display: block;
+        }
+
+        .empty-icon {
+            width: 65px;
+            height: 65px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            border-radius: 20px;
+            background: #eef2ff;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+        }
+
+        .empty-state p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           DETAILS MODAL
+        ========================= */
+
+        .department-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(7px);
+        }
+
+        .department-modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            position: relative;
+            width: min(100%, 680px);
+            max-height: min(85vh, 800px);
+            overflow-y: auto;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            background: white;
+            box-shadow: 0 30px 100px rgba(15, 23, 42, 0.3);
+            animation: modalAppear 0.2s ease;
+        }
+
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.99);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 17px;
+            right: 17px;
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            background: #f4f5ff;
+        }
+
+        .modal-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding-right: 42px;
+            margin-bottom: 25px;
+        }
+
+        .modal-heading .department-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 18px;
+            font-size: 24px;
+        }
+
+        .modal-heading h2 {
+            margin: 0;
+            font-size: 23px;
+            line-height: 1.4;
+            letter-spacing: -0.7px;
+        }
+
+        .modal-heading p {
+            margin: 7px 0 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .modal-section {
+            padding: 20px 0;
+            border-top: 1px solid #edf0f5;
+        }
+
+        .modal-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0 0 11px;
+            font-size: 13px;
+        }
+
+        .modal-section h3 i {
+            color: var(--primary);
+        }
+
+        .modal-section p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .highlight-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .highlight-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 11px;
+            border: 1px solid #e2e8ff;
+            border-radius: 9px;
+            background: #f8faff;
+            color: #475569;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .highlight-item i {
+            color: var(--primary);
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 12px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .department-footer {
+            padding: 25px 28px;
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        .footer-inner {
+            max-width: 1384px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .footer-brand strong {
+            font-size: 13px;
+        }
+
+        .footer-brand p,
+        .footer-copy {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1450px) {
+            .header-container {
+                gap: 12px;
+                padding-inline: 20px;
+            }
+
+            .brand-text h1 {
+                font-size: 18px;
+            }
+
+            .navigation {
+                gap: 1px;
+            }
+
+            .nav-link {
+                padding: 11px 8px;
+                font-size: 11px;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .new-button {
+                padding-inline: 13px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .header-container {
+                min-height: 78px;
+            }
+
+            .mobile-menu-button {
+                display: grid;
+            }
+
+            .navigation {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: none;
+                align-items: stretch;
+                flex-direction: column;
+                gap: 5px;
+                padding: 14px 20px 18px;
+                border-bottom: 1px solid var(--border);
+                background: white;
+                box-shadow: 0 15px 25px rgba(15, 23, 42, 0.06);
+            }
+
+            .navigation.mobile-open {
+                display: flex;
+            }
+
+            .nav-link {
+                justify-content: flex-start;
+                padding: 13px;
+                font-size: 12px;
+            }
+
+            .hero-layout {
+                grid-template-columns: minmax(0, 1fr) 180px;
+                gap: 20px;
+            }
+
+            .hero-art {
+                width: 165px;
+                height: 165px;
+                border-radius: 32px;
+            }
+
+            .hero-art-inner {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .department-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .toolbar-top {
+                grid-template-columns: minmax(0, 1fr) 170px;
+            }
+
+            .search-control {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .header-container {
+                padding: 10px 12px;
+                gap: 7px;
+            }
+
+            .brand {
+                gap: 8px;
+            }
+
+            .brand-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 12px;
+                font-size: 18px;
+            }
+
+            .brand-text h1 {
+                font-size: 14px;
+                letter-spacing: -0.4px;
+            }
+
+            .brand-text p {
+                margin-top: 3px;
+                font-size: 9px;
+            }
+
+            .header-actions {
+                gap: 6px;
+            }
+
+            .icon-button,
+            .mobile-menu-button {
+                width: 36px;
+                height: 36px;
+                border-radius: 11px;
+            }
+
+            .new-button {
+                width: 37px;
+                min-height: 37px;
+                padding: 0;
+                border-radius: 11px;
+            }
+
+            .new-button span {
+                display: none;
+            }
+
+            .department-page {
+                padding: 24px 14px 50px;
+            }
+
+            .breadcrumb {
+                margin-bottom: 20px;
+                font-size: 10px;
+            }
+
+            .shared-hero {
+                padding: 25px 21px;
+                border-radius: 20px;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-art {
+                display: none;
+            }
+
+            .shared-hero h2 {
+                font-size: 31px;
+                letter-spacing: -1.2px;
+            }
+
+            .hero-description {
+                font-size: 12px;
+            }
+
+            .hero-badge {
+                font-size: 10px;
+            }
+
+            .department-stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                margin: 16px 0 32px;
+            }
+
+            .stat-card {
+                gap: 10px;
+                padding: 13px 10px;
+                border-radius: 13px;
+            }
+
+            .stat-icon {
+                width: 37px;
+                height: 37px;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+
+            .stat-number {
+                font-size: 19px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .section-top {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .section-top h2 {
+                font-size: 23px;
+            }
+
+            .directory-toolbar {
+                padding: 13px;
+            }
+
+            .toolbar-top {
+                grid-template-columns: 1fr;
+            }
+
+            .search-control {
+                grid-column: auto;
+            }
+
+            .toolbar-select {
+                height: 44px;
+            }
+
+            .department-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .department-card {
+                padding: 20px;
+            }
+
+            .modal-card {
+                padding: 25px 20px;
+                border-radius: 19px;
+            }
+
+            .modal-heading h2 {
+                font-size: 18px;
+            }
+
+            .modal-heading .department-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 19px;
+            }
+
+            .footer-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .department-footer {
+                padding-inline: 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SHARED NAVBAR -->
+    <header class="header">
+        <div class="header-container">
+
+            <a class="brand" href="index.html" aria-label="GECC CampusVoice home">
+                <span class="brand-icon">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </span>
+
+                <span class="brand-text">
+                    <h1>GECC <span>CampusVoice</span></h1>
+                    <p>One campus. One voice.</p>
+                </span>
+            </a>
+
+            <nav class="navigation" id="mainNavigation" aria-label="Main navigation">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.html#announcements">Announcements</a>
+                <a class="nav-link" href="index.html#branches">Branches</a>
+                <a class="nav-link" href="events.html">Events</a>
+                <a class="nav-link" href="timetable.html">Timetable</a>
+                <a class="nav-link" href="placements.html">Placements</a>
+                <a class="nav-link active" href="departments.html" aria-current="page">Departments</a>
+                <a class="nav-link" href="saved.html">Saved</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="icon-button" id="notificationToggle"
+                        type="button" aria-label="Notifications"
+                        title="Notifications">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-badge" id="notificationBadge" hidden>0</span>
+                </button>
+
+                <a class="new-button" href="index.html?createAnnouncement=1">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>New Announcement</span>
+                </a>
+
+                <button class="mobile-menu-button" id="menuToggle"
+                        type="button" aria-label="Open navigation menu"
+                        aria-controls="mainNavigation" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="department-page">
+
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb">
+            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span>Departments</span>
+        </div>
+
+        <!-- HERO: KEEP THIS SAME STRUCTURE ON OTHER PAGES -->
+        <section class="shared-hero">
+            <div class="hero-layout">
+
+                <div>
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-building-columns"></i>
+                        Academic directory
+                    </span>
+
+                    <h2>
+                        Discover your department.
+                        <span>Shape your future.</span>
+                    </h2>
+
+                    <p class="hero-description">
+                        Explore academic departments, discover available programs,
+                        and find faculty contact information from one central campus directory.
+                    </p>
+
+                    <div class="hero-badges">
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-book-open"></i>
+                            Academic programs
+                        </span>
+
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-user-tie"></i>
+                            Faculty directory
+                        </span>
+
+                        <span class="hero-badge">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Quick search
+                        </span>
+                    </div>
+                </div>
+
+                <div class="hero-art" aria-hidden="true">
+                    <div class="hero-art-inner">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="department-stats" aria-label="Department statistics">
+
+            <div class="stat-card">
+                <div class="stat-icon indigo">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <div>
+                    <span class="stat-number" id="totalDepartments">0</span>
+                    <span class="stat-label">Departments listed</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <span class="stat-number" id="totalPrograms">0</span>
+                    <span class="stat-label">Program types</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div>
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Directory access</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-address-book"></i>
+                </div>
+                <div>
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Central directory</span>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- DEPARTMENT DIRECTORY -->
+        <section aria-labelledby="directoryTitle">
+
+            <div class="section-top">
+                <div>
+                    <span class="eyebrow">
+                        <i class="fa-solid fa-layer-group"></i>
+                        Explore the campus
+                    </span>
+                    <h2 id="directoryTitle">Department directory</h2>
+                    <p>Search departments and filter by academic program.</p>
+                </div>
+
+                <div class="directory-count" aria-live="polite">
+                    Showing <strong id="visibleCount">0</strong> departments
+                </div>
+            </div>
+
+            <!-- SEARCH / FILTERS -->
+            <div class="directory-toolbar">
+
+                <div class="toolbar-top">
+
+                    <div class="search-control">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            id="departmentSearch"
+                            type="search"
+                            placeholder="Search name, code, program, faculty..."
+                            aria-label="Search departments"
+                            autocomplete="off">
+
+                        <button class="search-clear" id="clearSearch"
+                                type="button" aria-label="Clear search"
+                                title="Clear search">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <select class="toolbar-select" id="programFilter"
+                            aria-label="Filter by program">
+                        <option value="all">All programs</option>
+                        <option value="BE">B.E.</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Research">Research</option>
+                    </select>
+
+                    <select class="toolbar-select" id="sortDepartments"
+                            aria-label="Sort departments">
+                        <option value="name">Sort: A to Z</option>
+                        <option value="name-desc">Sort: Z to A</option>
+                        <option value="code">Sort: Department code</option>
+                    </select>
+
+                </div>
+
+                <div class="filter-row" aria-label="Quick program filters">
+                    <span class="filter-label">QUICK FILTERS</span>
+                    <button class="program-chip active" data-program="all" type="button">All departments</button>
+                    <button class="program-chip" data-program="BE" type="button">B.E.</button>
+                    <button class="program-chip" data-program="Diploma" type="button">Diploma</button>
+                    <button class="program-chip" data-program="Research" type="button">Research</button>
+                </div>
+
+                <div class="toolbar-bottom">
+                    <span class="toolbar-hint">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Select a department to view its full profile.
+                    </span>
+
+                    <button class="reset-button" id="resetFilters" type="button">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Reset filters
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- CARDS ARE CREATED BY JAVASCRIPT -->
+            <div class="department-grid" id="departmentGrid"></div>
+
+            <!-- EMPTY STATE -->
+            <div class="empty-state" id="emptyState" role="status" aria-live="polite">
+                <div class="empty-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3>No departments found</h3>
+                <p>Try another search term or change the program filter.</p>
+                <button class="card-button primary" id="emptyReset" type="button">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Clear filters
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- DEPARTMENT DETAILS MODAL -->
+    <div class="department-modal" id="departmentModal"
+         role="dialog" aria-modal="true"
+         aria-labelledby="modalDepartmentName" aria-hidden="true">
+
+        <div class="modal-card">
+
+            <button class="modal-close" id="closeDepartmentModal"
+                    type="button" aria-label="Close department details">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modalDepartmentContent"></div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="department-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <strong>GECC CampusVoice</strong>
+                <p>One campus. One voice.</p>
+            </div>
+
+            <p class="footer-copy">
+                © 2026 GECC CampusVoice. Smart Campus Communication.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        "use strict";
+
+        /*
+         * Replace sample faculty, email and location details with
+         * verified information from your college before publishing.
+         */
+
+        const departments = [
+            {
+                name: "Computer Science & Engineering",
+                code: "CSE",
+                icon: "fa-laptop-code",
+                theme: "indigo",
+                programs: ["BE", "Research"],
+                description: "Explore software engineering, algorithms, databases, artificial intelligence, networking and cloud technologies.",
+                head: "Update with official HOD name",
+                email: "cse@example.edu",
+                location: "Update with official department location",
+                overview: "The department profile should describe its academic focus, facilities, laboratories, projects and student activities.",
+                highlights: ["Software Engineering", "Artificial Intelligence", "Data and Cloud Technologies"]
+            },
+            {
+                name: "Electronics & Communication Engineering",
+                code: "ECE",
+                icon: "fa-microchip",
+                theme: "blue",
+                programs: ["BE", "Research"],
+                description: "Discover electronics, communication systems, embedded systems, signal processing and hardware design.",
+                head: "Update with official HOD name",
+                email: "ece@example.edu",
+                location: "Update with official department location",
+                overview: "Add the official department introduction, laboratory details, research interests and academic activities.",
+                highlights: ["Communication Systems", "Embedded Systems", "Electronic Circuits"]
+            },
+            {
+                name: "Mechanical Engineering",
+                code: "ME",
+                icon: "fa-gears",
+                theme: "orange",
+                programs: ["BE", "Diploma"],
+                description: "Learn mechanical design, manufacturing processes, thermodynamics, materials and industrial engineering.",
+                head: "Update with official HOD name",
+                email: "me@example.edu",
+                location: "Update with official department location",
+                overview: "Add verified information about the department's laboratories, workshops, facilities and academic programs.",
+                highlights: ["Mechanical Design", "Manufacturing", "Thermal Engineering"]
+            },
+            {
+                name: "Civil Engineering",
+                code: "CE",
+                icon: "fa-building",
+                theme: "green",
+                programs: ["BE", "Diploma"],
+                description: "Explore structural engineering, construction, transportation, surveying and environmental engineering.",
+                head: "Update with official HOD name",
+                email: "ce@example.edu",
+                location: "Update with official department location",
+                overview: "Add the official department overview and details about its infrastructure, laboratories and academic activities.",
+                highlights: ["Structural Engineering", "Construction", "Environmental Engineering"]
+            },
+            {
+                name: "Information Science & Engineering",
+                code: "ISE",
+                icon: "fa-database",
+                theme: "pink",
+                programs: ["BE", "Research"],
+                description: "Focus on information systems, data management, software development, cybersecurity and web technologies.",
+                head: "Update with official HOD name",
+                email: "ise@example.edu",
+                location: "Update with official department location",
+                overview: "Add the official department introduction, computing facilities, research areas and student project information.",
+                highlights: ["Information Systems", "Cybersecurity", "Web Technologies"]
+            },
+            {
+                name: "Basic Sciences & Humanities",
+                code: "BSH",
+                icon: "fa-flask",
+                theme: "teal",
+                programs: ["BE", "Diploma"],
+                description: "Build foundations in mathematics, physics, chemistry, communication and essential engineering sciences.",
+                head: "Update with official HOD name",
+                email: "bsh@example.edu",
+                location: "Update with official department location",
+                overview: "Add the official department overview, subject areas, laboratory facilities and academic support information.",
+                highlights: ["Mathematics", "Physics and Chemistry", "Communication Skills"]
+            }
+        ];
+
+        const grid = document.getElementById("departmentGrid");
+        const searchInput = document.getElementById("departmentSearch");
+        const programFilter = document.getElementById("programFilter");
+        const sortDepartments = document.getElementById("sortDepartments");
+        const visibleCount = document.getElementById("visibleCount");
+        const emptyState = document.getElementById("emptyState");
+        const clearSearchButton = document.getElementById("clearSearch");
+        const modal = document.getElementById("departmentModal");
+        const modalContent = document.getElementById("modalDepartmentContent");
+        const closeModalButton = document.getElementById("closeDepartmentModal");
+
+        let activeProgram = "all";
+        let lastFocusedElement = null;
+
+        function escapeHTML(value) {
+            return String(value ?? "").replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        function isPlaceholder(value) {
+            return !value || /update with official|example\.edu/i.test(value);
+        }
+
+        function getSafeEmail(email) {
+            const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "");
+            return validEmail && !isPlaceholder(email) ? email : "";
+        }
+
+        function getFilteredDepartments() {
+            const query = searchInput.value.trim().toLowerCase();
+            const selectedProgram = programFilter.value;
+
+            const result = departments.filter(department => {
+                const matchesQuickFilter =
+                    activeProgram === "all" ||
+                    department.programs.includes(activeProgram);
+
+                const matchesSelect =
+                    selectedProgram === "all" ||
+                    department.programs.includes(selectedProgram);
+
+                const searchableText = [
+                    department.name,
+                    department.code,
+                    department.description,
+                    department.head,
+                    department.email,
+                    department.location,
+                    department.overview,
+                    department.programs.join(" "),
+                    department.highlights.join(" ")
+                ].join(" ").toLowerCase();
+
+                return matchesQuickFilter &&
+                    matchesSelect &&
+                    searchableText.includes(query);
+            });
+
+            switch (sortDepartments.value) {
+                case "name-desc":
+                    result.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case "code":
+                    result.sort((a, b) => a.code.localeCompare(b.code));
+                    break;
+                default:
+                    result.sort((a, b) => a.name.localeCompare(b.name));
+            }
+
+            return result;
+        }
+
+        function createDepartmentCard(department, index) {
+            const email = getSafeEmail(department.email);
+
+            const programTags = department.programs.map(program => `
+                <span class="program-tag">${escapeHTML(program)}</span>
+            `).join("");
+
+            const emailValue = email
+                ? `<a href="mailto:${escapeHTML(email)}">${escapeHTML(email)}</a>`
+                : "Contact details to be updated";
+
+            return `
+                <article class="department-card" style="animation-delay:${index * 35}ms">
+                    <div class="card-top">
+                        <div class="department-icon ${escapeHTML(department.theme)}">
+                            <i class="fa-solid ${escapeHTML(department.icon)}" aria-hidden="true"></i>
+                        </div>
+                        <span class="department-code">${escapeHTML(department.code)}</span>
+                    </div>
+
+                    <h3>${escapeHTML(department.name)}</h3>
+
+                    <div class="program-tags">${programTags}</div>
+
+                    <p class="department-description">
+                        ${escapeHTML(department.description)}
+                    </p>
+
+                    <div class="card-divider"></div>
+
+                    <div class="department-contact">
+                        <div class="contact-row">
+                            <span class="contact-icon">
+                                <i class="fa-solid fa-user-tie" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-copy">
+                                <span class="contact-label">Department Head</span>
+                                <span class="contact-value">${escapeHTML(department.head)}</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <span class="contact-icon">
+                                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-copy">
+                                <span class="contact-label">Official Contact</span>
+                                <span class="contact-value">${emailValue}</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-row">
+                            <span class="contact-icon">
+                                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                            </span>
+                            <div class="contact-copy">
+                                <span class="contact-label">Office Location</span>
+                                <span class="contact-value">${escapeHTML(department.location)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <button class="card-button primary"
+                                type="button"
+                                data-department-code="${escapeHTML(department.code)}">
+                            View department
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderDepartments() {
+            const filteredDepartments = getFilteredDepartments();
+
+            grid.innerHTML = filteredDepartments
+                .map(createDepartmentCard)
+                .join("");
+
+            visibleCount.textContent = filteredDepartments.length;
+            emptyState.classList.toggle("visible", filteredDepartments.length === 0);
+            grid.style.display = filteredDepartments.length === 0 ? "none" : "grid";
+
+            clearSearchButton.classList.toggle(
+                "visible",
+                searchInput.value.length > 0
+            );
+        }
+
+        function openDepartmentDetails(code, trigger) {
+            const department = departments.find(item => item.code === code);
+            if (!department) return;
+
+            lastFocusedElement = trigger || document.activeElement;
+
+            const email = getSafeEmail(department.email);
+            const emailMarkup = email
+                ? `<a href="mailto:${escapeHTML(email)}">${escapeHTML(email)}</a>`
+                : "Contact details to be updated";
+
+            const highlights = department.highlights.map(item => `
+                <span class="highlight-item">
+                    <i class="fa-solid fa-check"></i>
+                    ${escapeHTML(item)}
+                </span>
+            `).join("");
+
+            const programs = department.programs
+                .map(program => escapeHTML(program))
+                .join(" · ");
+
+            modalContent.innerHTML = `
+                <div class="modal-heading">
+                    <div class="department-icon ${escapeHTML(department.theme)}">
+                        <i class="fa-solid ${escapeHTML(department.icon)}"></i>
+                    </div>
+
+                    <div>
+                        <h2 id="modalDepartmentName">${escapeHTML(department.name)}</h2>
+                        <p>${escapeHTML(department.code)} department · ${programs}</p>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fa-solid fa-circle-info"></i> About the department</h3>
+                    <p>${escapeHTML(department.overview)}</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fa-solid fa-graduation-cap"></i> Programs available</h3>
+                    <p>${programs}</p>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fa-solid fa-star"></i> Academic focus areas</h3>
+                    <div class="highlight-list">${highlights}</div>
+                </div>
+
+                <div class="modal-section">
+                    <h3><i class="fa-solid fa-address-card"></i> Contact information</h3>
+                    <p><strong>Department head:</strong> ${escapeHTML(department.head)}</p>
+                    <p style="margin-top:8px"><strong>Email:</strong> ${emailMarkup}</p>
+                    <p style="margin-top:8px"><strong>Office:</strong> ${escapeHTML(department.location)}</p>
+                </div>
+
+                <div class="modal-footer">
+                    ${email
+                        ? `<a class="card-button primary" href="mailto:${escapeHTML(email)}">
+                               <i class="fa-solid fa-envelope"></i> Contact department
+                           </a>`
+                        : `<span class="card-button">
+                               <i class="fa-solid fa-circle-info"></i> Contact details pending
+                           </span>`
+                    }
+                    <button class="card-button" type="button" id="modalCloseAction">
+                        Close
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add("open");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+
+            const modalCloseAction = document.getElementById("modalCloseAction");
+            if (modalCloseAction) {
+                modalCloseAction.addEventListener("click", closeDepartmentDetails);
+            }
+
+            closeModalButton.focus();
+        }
+
+        function closeDepartmentDetails() {
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+
+            if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                lastFocusedElement.focus();
+            }
+        }
+
+        function resetFilters() {
+            searchInput.value = "";
+            programFilter.value = "all";
+            sortDepartments.value = "name";
+            activeProgram = "all";
+
+            document.querySelectorAll(".program-chip").forEach(button => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.program === "all"
+                );
+            });
+
+            renderDepartments();
+        }
+
+        /* Search and filters */
+        searchInput.addEventListener("input", renderDepartments);
+        programFilter.addEventListener("change", renderDepartments);
+        sortDepartments.addEventListener("change", renderDepartments);
+
+        clearSearchButton.addEventListener("click", () => {
+            searchInput.value = "";
+            renderDepartments();
+            searchInput.focus();
+        });
+
+        document.querySelectorAll(".program-chip").forEach(button => {
+            button.addEventListener("click", () => {
+                activeProgram = button.dataset.program;
+
+                document.querySelectorAll(".program-chip").forEach(chip => {
+                    chip.classList.toggle("active", chip === button);
+                });
+
+                programFilter.value = "all";
+                renderDepartments();
+            });
+        });
+
+        document.getElementById("resetFilters").addEventListener("click", resetFilters);
+        document.getElementById("emptyReset").addEventListener("click", resetFilters);
+
+        /* Department card actions */
+        grid.addEventListener("click", event => {
+            const button = event.target.closest("[data-department-code]");
+            if (!button) return;
+
+            openDepartmentDetails(button.dataset.departmentCode, button);
+        });
+
+        /* Modal controls */
+        closeModalButton.addEventListener("click", closeDepartmentDetails);
+
+        modal.addEventListener("click", event => {
+            if (event.target === modal) {
+                closeDepartmentDetails();
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape" && modal.classList.contains("open")) {
+                closeDepartmentDetails();
+            }
+        });
+
+        /* Responsive mobile navigation */
+        const menuToggle = document.getElementById("menuToggle");
+        const mainNavigation = document.getElementById("mainNavigation");
+
+        if (menuToggle && mainNavigation) {
+            menuToggle.addEventListener("click", () => {
+                const isOpen = mainNavigation.classList.toggle("mobile-open");
+
+                menuToggle.setAttribute("aria-expanded", String(isOpen));
+                menuToggle.setAttribute(
+                    "aria-label",
+                    isOpen ? "Close navigation menu" : "Open navigation menu"
+                );
+
+                menuToggle.innerHTML = isOpen
+                    ? '<i class="fa-solid fa-xmark"></i>'
+                    : '<i class="fa-solid fa-bars"></i>';
+            });
+
+            mainNavigation.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    mainNavigation.classList.remove("mobile-open");
+                    menuToggle.setAttribute("aria-expanded", "false");
+                    menuToggle.setAttribute("aria-label", "Open navigation menu");
+                    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
+
+        /* Statistics */
+        document.getElementById("totalDepartments").textContent = departments.length;
+
+        const allPrograms = new Set(
+            departments.flatMap(department => department.programs)
+        );
+
+        document.getElementById("totalPrograms").textContent = allPrograms.size;
+
+        /* Notification button: connect this to your notification feature when available. */
+        document.getElementById("notificationToggle").addEventListener("click", () => {
+            window.location.href = "index.html#announcements";
+        });
+
+        /* Initial render */
+        renderDepartments();
+    </script>
+
+</body>
+</html>
