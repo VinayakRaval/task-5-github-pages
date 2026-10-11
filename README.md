@@ -103,9 +103,9 @@ If `git commit` reports `nothing to commit, working tree clean`, there are no un
 - [ ] Screenshots added to the `screenshots/` folder.
 - [ ] README updated with the correct repository and live website links.
 
-**GitHub repository:** `https://github.com/YOUR-USERNAME/YOUR-REPOSITORY`
+**GitHub repository:** `https://github.com/VinayakRaval/task-5-github-pages.git`
 
-**Live website:** `https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`
+**Live website:** `https://vinayakraval.github.io/task-5-github-pages/index.html`
 
 Replace the example URLs above with your actual links.
 
